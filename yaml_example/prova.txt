@@ -1,0 +1,521 @@
+prova = [
+  questao {
+    id = 1
+    tema = "GOF"
+    enunciado = "Os padrões de projeto do catálogo GoF são tradicionalmente organizados em três grandes categorias. Qual alternativa apresenta essa classificação corretamente?"
+    opcoes = [
+      { token = "A", texto = "Criacionais, Estruturais e Comportamentais" }
+      { token = "B", texto = "Funcionais, Arquiteturais e Distribuídos" }
+      { token = "C", texto = "Herança, Polimorfismo e Encapsulamento" }
+      { token = "D", texto = "DTO, MVC e Repository" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 2
+    tema = "SOLID-SRP"
+    enunciado = "Uma classe UsuarioController recebe a requisição HTTP, valida CPF, aplica regras de negócio, salva no banco e envia e-mail de boas-vindas. Qual princípio SOLID está mais claramente sendo violado?"
+    opcoes = [
+      { token = "A", texto = "OCP, pois a classe não usa herança" }
+      { token = "B", texto = "SRP, pois a classe possui múltiplas responsabilidades" }
+      { token = "C", texto = "LSP, pois o controller deveria ser abstrato" }
+      { token = "D", texto = "ISP, pois faltou criar uma interface para o controller" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 3
+    tema = "SOLID-OCP"
+    enunciado = "Considere um serviço que hoje processa usuários dos tipos CLIENTE e FUNCIONARIO usando if/else. Amanhã será necessário incluir ADMIN. Qual opção melhor atende ao princípio Aberto/Fechado?"
+    opcoes = [
+      { token = "A", texto = "Adicionar mais um else if para ADMIN no mesmo método" }
+      { token = "B", texto = "Criar uma interface RegraUsuario e novas implementações para cada tipo, mantendo o orquestrador fechado para modificação" }
+      { token = "C", texto = "Trocar if/else por switch, mantendo toda a lógica centralizada" }
+      { token = "D", texto = "Mover o if/else para o controller" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 4
+    tema = "SOLID-LSP"
+    enunciado = "Uma subclasse CartaoPresente herda de FormaPagamento, mas sobrescreve o método estornar() lançando UnsupportedOperationException porque esse tipo não suporta estorno. Qual análise é a mais adequada?"
+    opcoes = [
+      { token = "A", texto = "Está correto, porque exceções em subclasses sempre são esperadas" }
+      { token = "B", texto = "Viola LSP, pois a subclasse quebra o contrato esperado da superclasse" }
+      { token = "C", texto = "Viola apenas SRP, pois a classe faz pouca coisa" }
+      { token = "D", texto = "Não há problema, desde que o método seja public" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 5
+    tema = "SOLID-ISP"
+    enunciado = "Uma interface chamada GerenciadorUsuarioRepository possui métodos de CRUD, filtros avançados, relatórios e exportação. Uma implementação simples só precisa salvar e buscar por id, mas é obrigada a implementar todos os demais métodos. Qual princípio está sendo ferido?"
+    opcoes = [
+      { token = "A", texto = "ISP, pois a interface está grande demais e força implementações desnecessárias" }
+      { token = "B", texto = "DIP, pois não há injeção de dependência" }
+      { token = "C", texto = "LSP, pois faltou herança múltipla" }
+      { token = "D", texto = "Factory Method, pois não existe fábrica" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 6
+    tema = "SOLID-DIP"
+    enunciado = "Analise o código em Java 21:\n\nclass NotificadorPedido {\n    private final GmailService gmail = new GmailService();\n\n    void enviar(String email, String msg) {\n        gmail.send(email, msg);\n    }\n}\n\nQual refatoração melhor aplica o DIP?"
+    opcoes = [
+      { token = "A", texto = "Tornar GmailService static" }
+      { token = "B", texto = "Substituir GmailService por uma abstração, como EmailService, e injetá-la no construtor" }
+      { token = "C", texto = "Mover a criação de GmailService para dentro do método enviar" }
+      { token = "D", texto = "Fazer NotificadorPedido herdar de GmailService" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 7
+    tema = "Bad Smell"
+    enunciado = "Qual alternativa descreve corretamente um bad smell?"
+    opcoes = [
+      { token = "A", texto = "É necessariamente um bug que impede a execução do sistema" }
+      { token = "B", texto = "É um sintoma superficial de um problema de design, mesmo que o código ainda funcione" }
+      { token = "C", texto = "É qualquer código escrito em linguagem orientada a objetos" }
+      { token = "D", texto = "É apenas um problema visual de formatação" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 8
+    tema = "Bad Smell-Método Longo"
+    enunciado = "Um método com 180 linhas mistura validações, acesso a API externa, regras de aprovação, logs e persistência. Qual é a melhor interpretação?"
+    opcoes = [
+      { token = "A", texto = "Isso é desejável, porque centraliza tudo em um único lugar" }
+      { token = "B", texto = "É um sinal de método longo e provável violação de SRP, dificultando manutenção e testes" }
+      { token = "C", texto = "Não há problema se o método compilar" }
+      { token = "D", texto = "O único problema é não usar comentários em todas as linhas" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 9
+    tema = "Bad Smell-Código Duplicado"
+    enunciado = "Uma regra de cálculo de taxa aparece copiada em três serviços. O risco principal dessa duplicação é:"
+    opcoes = [
+      { token = "A", texto = "Melhorar o desempenho, pois a lógica fica replicada" }
+      { token = "B", texto = "Aumentar a chance de bugs silenciosos quando a regra mudar e nem todas as cópias forem atualizadas" }
+      { token = "C", texto = "Garantir aderência automática ao OCP" }
+      { token = "D", texto = "Reduzir a coesão das classes de maneira positiva" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 10
+    tema = "Bad Smell-Magic Values"
+    enunciado = "Considere o trecho:\n\nif (cep.startsWith(\"85\")) frete = 10.0;\nelse if (cep.startsWith(\"01\")) frete = 20.0;\nelse frete = 50.0;\n\nif (tipo.equals(\"PRODUTO\")) imposto = valor * 0.18;\nelse if (tipo.equals(\"SERVICO\")) imposto = valor * 0.05;\n\nQual bad smell aparece com mais clareza?"
+    opcoes = [
+      { token = "A", texto = "Feature envy" }
+      { token = "B", texto = "Nomes e valores misteriosos (magic numbers / magic strings)" }
+      { token = "C", texto = "Lazy class" }
+      { token = "D", texto = "Middle man" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 11
+    tema = "Strategy"
+    enunciado = "Em qual cenário o padrão Strategy é mais apropriado?"
+    opcoes = [
+      { token = "A", texto = "Quando há uma família de algoritmos intercambiáveis e a escolha pode variar conforme o contexto" }
+      { token = "B", texto = "Quando se deseja impedir totalmente a extensão do sistema" }
+      { token = "C", texto = "Quando uma classe precisa ter apenas atributos imutáveis" }
+      { token = "D", texto = "Quando o objetivo é converter interfaces incompatíveis" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 12
+    tema = "Strategy + Factory"
+    enunciado = "Uma fintech possui regras de análise para PF, PJ e UNIVERSITARIO. O serviço de alto nível não deve usar if/else gigante nem instanciar diretamente as estratégias com new. Qual solução é a mais adequada?"
+    opcoes = [
+      { token = "A", texto = "Usar Strategy para encapsular as regras e Factory para centralizar a criação da estratégia correta" }
+      { token = "B", texto = "Usar apenas Template Method, sem subclasses" }
+      { token = "C", texto = "Usar Adapter para todas as regras internas" }
+      { token = "D", texto = "Usar Singleton para cada regra e chamar diretamente no controller" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 13
+    tema = "Factory-Java21"
+    enunciado = "Considere a factory abaixo em Java 21:\n\npublic static PagamentoStrategy obter(TipoPagamento tipo) {\n    return switch (tipo) {\n        case PIX -> new PixStrategy();\n        case BOLETO -> new BoletoStrategy();\n        case CARTAO -> new CartaoStrategy();\n        case PAYPAL -> new PaypalStrategy();\n    };\n}\n\nQual vantagem é mais alinhada ao conteúdo estudado?"
+    opcoes = [
+      { token = "A", texto = "A factory devolve a abstração e centraliza os new, reduzindo acoplamento na camada de negócio" }
+      { token = "B", texto = "O switch expression elimina a necessidade de classes concretas" }
+      { token = "C", texto = "A factory substitui completamente o padrão Strategy" }
+      { token = "D", texto = "O código deixa de precisar compilar para novos tipos" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 14
+    tema = "Adapter"
+    enunciado = "Sua aplicação trabalha com a interface abaixo:\n\ninterface ServicoAnaliseRisco {\n    boolean avaliarCredito(SolicitacaoCredito s);\n}\n\nPorém, o fornecedor externo só expõe uma API SOAP/XML legada com payloads específicos. Qual padrão resolve melhor esse problema?"
+    opcoes = [
+      { token = "A", texto = "Builder" }
+      { token = "B", texto = "Adapter" }
+      { token = "C", texto = "Observer" }
+      { token = "D", texto = "Prototype" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 15
+    tema = "Adapter-Contexto"
+    enunciado = "No contexto de integração com uma API SOAP legada, qual responsabilidade é típica de um Adapter?"
+    opcoes = [
+      { token = "A", texto = "Substituir o banco de dados por memória" }
+      { token = "B", texto = "Traduzir o objeto de domínio para SOAP/XML, chamar a API externa e converter a resposta de volta ao formato esperado pela aplicação" }
+      { token = "C", texto = "Definir o esqueleto imutável de um algoritmo" }
+      { token = "D", texto = "Garantir que exista apenas uma instância global" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 16
+    tema = "Template Method"
+    enunciado = "Considere a classe abstrata:\n\nabstract class GeradorRelatorioTemplate {\n    public final void gerarRelatorio(String data) {\n        var dados = extrairDadosDoBanco();\n        if (dados.isEmpty()) return;\n        var cabecalho = formatarCabecalho();\n        var corpo = formatarCorpo(dados);\n        salvarArquivo(cabecalho + corpo);\n    }\n\n    protected abstract String formatarCabecalho();\n    protected abstract String formatarCorpo(java.util.List<String> dados);\n}\n\nQual afirmação está correta?"
+    opcoes = [
+      { token = "A", texto = "A classe usa Strategy, pois cada método abstrato é uma fábrica" }
+      { token = "B", texto = "A classe usa Template Method, pois define o esqueleto do algoritmo e delega passos variáveis às subclasses" }
+      { token = "C", texto = "A classe usa Adapter, pois converte listas em strings" }
+      { token = "D", texto = "A palavra final deveria ser removida para permitir alterar livremente a ordem do algoritmo" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 17
+    tema = "Template Method-Aplicação"
+    enunciado = "Uma empresa precisa gerar relatórios CSV e PDF. O acesso ao banco, o tratamento de erro e o salvamento em disco são sempre iguais; só muda a formatação da saída. Qual solução é a mais indicada?"
+    opcoes = [
+      { token = "A", texto = "Duplicar a lógica de banco em RelatorioCSV e RelatorioPDF" }
+      { token = "B", texto = "Criar uma classe base com o fluxo comum e subclasses que sobrescrevem apenas a formatação" }
+      { token = "C", texto = "Usar apenas records, sem herança" }
+      { token = "D", texto = "Trocar tudo por um enum com strings prontas" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 18
+    tema = "Sealed Interfaces"
+    enunciado = "No Java 21, qual alternativa representa melhor o uso de sealed interface?"
+    opcoes = [
+      { token = "A", texto = "Permite que qualquer classe do projeto implemente a interface livremente" }
+      { token = "B", texto = "Restringe explicitamente quais classes ou records podem implementar a interface" }
+      { token = "C", texto = "É igual a uma interface comum, mudando apenas a performance" }
+      { token = "D", texto = "Serve apenas para classes abstratas, não para interfaces" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 19
+    tema = "Sealed Interfaces + LPS"
+    enunciado = "Considere a declaração:\n\npublic sealed interface Documento permits Cpf, Curp, Ssn {}\npublic record Cpf(String valor) implements Documento {}\npublic record Curp(String valor) implements Documento {}\npublic record Ssn(String valor) implements Documento {}\n\nQual vantagem arquitetural ela oferece no contexto de linha de produto?"
+    opcoes = [
+      { token = "A", texto = "Permite variantes controladas e autorizadas, reduzindo implementações fora do ecossistema previsto" }
+      { token = "B", texto = "Substitui automaticamente o padrão Factory" }
+      { token = "C", texto = "Elimina a necessidade de records" }
+      { token = "D", texto = "Faz o sistema aceitar qualquer documento internacional sem alteração" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 20
+    tema = "Cenário Integrador"
+    enunciado = "Uma fintech está evoluindo para operar em vários países. O core deve permanecer estável, a escolha da regra de análise deve variar por país, integrações externas devem ficar isoladas e apenas documentos autorizados devem existir no ecossistema. Qual combinação de soluções é a mais coerente?"
+    opcoes = [
+      { token = "A", texto = "if/else por país + chamadas HTTP diretas no serviço + classes abertas para qualquer implementação" }
+      { token = "B", texto = "Strategy para variabilidade, Factory para seleção/criação, Adapter para integrações externas e Sealed Interfaces para restringir variantes" }
+      { token = "C", texto = "Singleton para regras de país + Builder para integrações + Proxy para documentos" }
+      { token = "D", texto = "Somente Template Method resolve todo o cenário sem necessidade de outros padrões" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 1
+    tema = "GOF + Contexto"
+    enunciado = "Uma equipe afirma: 'Vamos usar Adapter para escolher dinamicamente a regra de cálculo de juros conforme o tipo de cliente'. Considerando o catálogo GoF e a responsabilidade de cada padrão, qual avaliação é a mais correta?"
+    opcoes = [
+      { token = "A", texto = "Está correto, porque Adapter é o padrão mais indicado para trocar algoritmos em tempo de execução" }
+      { token = "B", texto = "Está parcialmente correto, pois Adapter e Strategy têm exatamente o mesmo objetivo" }
+      { token = "C", texto = "Está incorreto, porque Adapter trata incompatibilidade entre interfaces; para alternar algoritmos, o padrão mais adequado é Strategy" }
+      { token = "D", texto = "Está incorreto, porque o padrão correto seria Template Method em qualquer cenário de seleção dinâmica" }
+    ]
+    correta = "C"
+  }
+
+  questao {
+    id = 2
+    tema = "SOLID-SRP"
+    enunciado = "Considere a classe abaixo:\n\nclass FechamentoPedidoService {\n    void fechar(Pedido p) {\n        validarItens(p);\n        calcularImpostos(p);\n        repository.save(p);\n        emailClient.enviarConfirmacao(p);\n        auditoria.registrar(\"pedido fechado\");\n    }\n}\n\nQual alternativa apresenta a análise mais precisa?"
+    opcoes = [
+      { token = "A", texto = "A classe viola SRP, pois mistura regra de negócio, persistência, comunicação externa e auditoria em um mesmo ponto de mudança" }
+      { token = "B", texto = "A classe viola apenas OCP, pois há chamadas de método demais" }
+      { token = "C", texto = "A classe está aderente a SRP, porque tudo faz parte do fechamento do pedido" }
+      { token = "D", texto = "A classe viola apenas LSP, pois deveria ser abstrata" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 3
+    tema = "SOLID-OCP"
+    enunciado = "Em um sistema de cadastro, a cada novo tipo de usuário a equipe altera este método:\n\npublic Usuario criar(String tipo, String nome) {\n    if (tipo.equals(\"CLIENTE\")) return new Cliente(nome);\n    if (tipo.equals(\"FUNCIONARIO\")) return new Funcionario(nome);\n    if (tipo.equals(\"ADMIN\")) return new Admin(nome);\n    throw new IllegalArgumentException();\n}\n\nQual refatoração melhor atende ao OCP sem perder legibilidade?"
+    opcoes = [
+      { token = "A", texto = "Trocar os ifs por switch tradicional com break" }
+      { token = "B", texto = "Criar uma hierarquia de estratégias ou regras de criação e um orquestrador que dependa da abstração" }
+      { token = "C", texto = "Adicionar comentários explicando cada if" }
+      { token = "D", texto = "Transformar o método em static final" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 4
+    tema = "SOLID-LSP"
+    enunciado = "Uma interface define o contrato:\n\ninterface Descontavel {\n    BigDecimal aplicarDesconto(BigDecimal valor);\n}\n\nA implementação abaixo foi criada:\n\nclass ProdutoSemDesconto implements Descontavel {\n    @Override\n    public BigDecimal aplicarDesconto(BigDecimal valor) {\n        throw new UnsupportedOperationException(\"não aplicável\");\n    }\n}\n\nQual é a melhor conclusão?"
+    opcoes = [
+      { token = "A", texto = "A solução é adequada, pois deixa explícito em runtime que o produto não participa da regra" }
+      { token = "B", texto = "Há indício de violação de LSP; o ideal seria redesenhar a abstração para que implementações não sejam forçadas a quebrar o contrato" }
+      { token = "C", texto = "O problema real é exclusivamente de ISP" }
+      { token = "D", texto = "O código está correto desde que a exceção seja documentada no Javadoc" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 5
+    tema = "SOLID-ISP"
+    enunciado = "Analise a interface:\n\ninterface UsuarioRepository {\n    Usuario salvar(Usuario u);\n    Optional<Usuario> buscarPorId(Long id);\n    List<Usuario> buscarPorFiltrosAvancados(Map<String, Object> filtros);\n    byte[] gerarRelatorioMensal();\n    void sincronizarComLegado();\n}\n\nUma implementação em memória para testes precisa apenas de salvar e buscarPorId. Qual alternativa é a melhor?"
+    opcoes = [
+      { token = "A", texto = "Manter a interface como está e lançar UnsupportedOperationException nos demais métodos" }
+      { token = "B", texto = "Segregar a interface em contratos menores e mais coesos, como CRUD, filtros e relatórios" }
+      { token = "C", texto = "Tornar todos os métodos default com retorno null" }
+      { token = "D", texto = "Fazer a classe de teste herdar de uma implementação concreta do banco" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 6
+    tema = "SOLID-DIP"
+    enunciado = "Considere o código:\n\nclass ProcessadorNotificacao {\n    private final SmsGateway gateway;\n\n    ProcessadorNotificacao() {\n        this.gateway = new TwilioGateway();\n    }\n\n    void processar(String numero, String msg) {\n        gateway.enviar(numero, msg);\n    }\n}\n\nQual mudança aplica melhor DIP?"
+    opcoes = [
+      { token = "A", texto = "Trocar TwilioGateway por outro provider mais moderno" }
+      { token = "B", texto = "Fazer ProcessadorNotificacao depender de uma abstração, por exemplo SmsGateway, recebida por injeção" }
+      { token = "C", texto = "Mover o new TwilioGateway() para dentro do método processar" }
+      { token = "D", texto = "Fazer TwilioGateway implementar Serializable" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 7
+    tema = "Bad Smell + Dívida Técnica"
+    enunciado = "Qual alternativa melhor expressa a relação entre bad smell e dívida técnica?"
+    opcoes = [
+      { token = "A", texto = "Todo bad smell é um defeito funcional já manifestado em produção" }
+      { token = "B", texto = "Bad smells são sinais de design ruim que, se ignorados, tendem a aumentar a dívida técnica e o custo futuro de evolução" }
+      { token = "C", texto = "Dívida técnica existe apenas quando há código duplicado" }
+      { token = "D", texto = "Se o sistema entrega valor hoje, não existe dívida técnica" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 8
+    tema = "Bad Smell-Método Longo"
+    enunciado = "Um professor pede que o aluno identifique o principal problema do método abaixo:\n\nboolean analisar(Solicitacao s) {\n    // 140 linhas com validação, logging, chamadas externas,\n    // condições por PF/PJ, regras de score e persistência\n}\n\nQual resposta é a mais completa?"
+    opcoes = [
+      { token = "A", texto = "O problema é só de estilo; bastaria reformatar o código" }
+      { token = "B", texto = "Há método longo e provável baixa coesão; comentários internos e blocos distintos sugerem extração de métodos e separação de responsabilidades" }
+      { token = "C", texto = "O método está bom porque concentra a regra em um ponto único" }
+      { token = "D", texto = "O único problema é não usar virtual threads" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 9
+    tema = "Bad Smell-Testes Frágeis"
+    enunciado = "Uma classe só pode ser testada por meio de testes que executam o fluxo inteiro, incluindo acesso à API externa e banco. Segundo o conteúdo estudado, qual é a melhor leitura?"
+    opcoes = [
+      { token = "A", texto = "Isso indica testes frágeis e possível acoplamento excessivo, dificultando isolar responsabilidades" }
+      { token = "B", texto = "Isso é desejável, porque todo teste deve ser funcional" }
+      { token = "C", texto = "Isso prova aderência total ao DIP" }
+      { token = "D", texto = "Isso elimina a necessidade de refatoração" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 10
+    tema = "Bad Smell-Magic Values"
+    enunciado = "Observe o trecho:\n\nif (tipo.equals(\"PF\") && score > 600 && valor < 5000) { ... }\nelse if (tipo.equals(\"PJ\") && score > 700 && valor < 50000) { ... }\n\nQual refatoração endereça melhor o problema mais evidente?"
+    opcoes = [
+      { token = "A", texto = "Substituir as strings e números soltos por abstrações de domínio, como enum, constantes nomeadas ou objetos de regra" }
+      { token = "B", texto = "Apenas trocar equals por equalsIgnoreCase" }
+      { token = "C", texto = "Remover os operadores lógicos para simplificar" }
+      { token = "D", texto = "Converter tudo para double" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 11
+    tema = "Strategy"
+    enunciado = "Considere:\n\ninterface AnaliseStrategy {\n    boolean elegivel(Solicitacao s);\n    boolean analisar(Solicitacao s);\n}\n\nQual benefício arquitetural esse desenho oferece quando comparado a um if/else gigante por tipo de conta?"
+    opcoes = [
+      { token = "A", texto = "Permite encapsular cada regra em uma implementação intercambiável, favorecendo extensão, teste e reuso" }
+      { token = "B", texto = "Impede completamente a criação de novas regras" }
+      { token = "C", texto = "Substitui qualquer necessidade de fábrica" }
+      { token = "D", texto = "É equivalente a usar métodos static em uma utilitária" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 12
+    tema = "Strategy + Factory + Java 21"
+    enunciado = "Analise a factory:\n\npublic class AnaliseCreditoFactory {\n    public static AnaliseStrategy obter(TipoConta tipo) {\n        return switch (tipo) {\n            case PF -> new AnaliseStrategyPF();\n            case PJ -> new AnaliseStrategyPJ();\n            case UNIVERSITARIO -> new AnaliseUniversitario();\n        };\n    }\n}\n\nQual alternativa melhor explica por que esse desenho foi incentivado nas aulas?"
+    opcoes = [
+      { token = "A", texto = "Porque a camada de negócio deixa de conhecer as classes concretas e passa a depender da abstração retornada pela factory" }
+      { token = "B", texto = "Porque switch expression elimina a necessidade de Strategy" }
+      { token = "C", texto = "Porque factories sempre substituem DIP" }
+      { token = "D", texto = "Porque a factory impede completamente evolução do enum" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 13
+    tema = "Cenário de Refatoração"
+    enunciado = "Um sistema de checkout tem este método:\n\nvoid pagar(double valor, String metodo) {\n    if (metodo.equals(\"PIX\")) { ... }\n    else if (metodo.equals(\"CARTAO\")) { ... }\n    else if (metodo.equals(\"PAYPAL\")) { ... }\n    else if (metodo.equals(\"BOLETO\")) { ... }\n}\n\nQual caminho de refatoração é o mais coerente com as aulas?"
+    opcoes = [
+      { token = "A", texto = "Criar PagamentoStrategy, implementações concretas e uma PagamentoFactory usando switch expressions do Java 21" }
+      { token = "B", texto = "Trocar String por int e manter os ifs" }
+      { token = "C", texto = "Mover os ifs para o controller" }
+      { token = "D", texto = "Criar um método maior ainda chamado processarTudo()" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 14
+    tema = "Adapter"
+    enunciado = "Sua aplicação foi bem modelada e expõe a abstração:\n\ninterface ServicoAnaliseRisco {\n    boolean avaliarCredito(SolicitacaoCredito s);\n}\n\nPorém, a integração necessária é com um provedor legado SOAP/XML. Qual implementação abaixo representa melhor o papel do Adapter?"
+    opcoes = [
+      { token = "A", texto = "Uma classe que herda de SolicitacaoCredito e adiciona campos XML" }
+      { token = "B", texto = "Uma classe que implementa ServicoAnaliseRisco, traduz o objeto de domínio em payload SOAP, invoca o serviço externo e converte a resposta de volta" }
+      { token = "C", texto = "Uma factory que cria records de resposta" }
+      { token = "D", texto = "Uma strategy para escolher entre CSV e PDF" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 15
+    tema = "Adapter + Blindagem de Infra"
+    enunciado = "No contexto de LPS e reuso, por que isolar integrações externas com Adapter é uma decisão forte de arquitetura?"
+    opcoes = [
+      { token = "A", texto = "Porque faz a regra de negócio conhecer melhor os detalhes de HTTP e SOAP" }
+      { token = "B", texto = "Porque reduz o espalhamento de dependências de infraestrutura pelo core e protege o domínio de mudanças em APIs externas" }
+      { token = "C", texto = "Porque elimina a necessidade de interfaces" }
+      { token = "D", texto = "Porque Adapter é obrigatório sempre que houver JSON" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 16
+    tema = "Template Method"
+    enunciado = "Considere:\n\nabstract class GeradorRelatorioTemplate {\n    public final void gerarRelatorio(String data) {\n        var dados = extrairDadosDoBanco();\n        if (dados.isEmpty()) return;\n        var cabecalho = formatarCabecalho();\n        var corpo = formatarCorpo(dados);\n        salvarArquivo(cabecalho + corpo);\n    }\n\n    protected abstract String formatarCabecalho();\n    protected abstract String formatarCorpo(java.util.List<String> dados);\n}\n\nPor que o método gerarRelatorio foi definido como final?"
+    opcoes = [
+      { token = "A", texto = "Para impedir a alteração da ordem do algoritmo principal nas subclasses" }
+      { token = "B", texto = "Para obrigar subclasses a sobrescreverem o método" }
+      { token = "C", texto = "Para melhorar desempenho do banco de dados" }
+      { token = "D", texto = "Porque métodos abstratos só funcionam com métodos finais" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 17
+    tema = "Template Method vs Strategy"
+    enunciado = "Qual alternativa diferencia melhor Template Method de Strategy?"
+    opcoes = [
+      { token = "A", texto = "Template Method fixa o esqueleto do algoritmo em uma classe base; Strategy encapsula algoritmos intercambiáveis por composição" }
+      { token = "B", texto = "Template Method e Strategy são idênticos; muda apenas o nome das classes" }
+      { token = "C", texto = "Strategy exige herança, enquanto Template Method exige composição" }
+      { token = "D", texto = "Template Method serve apenas para integração com legado" }
+    ]
+    correta = "A"
+  }
+
+  questao {
+    id = 18
+    tema = "Sealed Interfaces"
+    enunciado = "Analise o código Java 21:\n\npublic sealed interface Documento permits Cpf, Curp, Ssn {}\npublic record Cpf(String valor) implements Documento {}\npublic record Curp(String valor) implements Documento {}\npublic record Ssn(String valor) implements Documento {}\n\nQual afirmativa é a mais correta?"
+    opcoes = [
+      { token = "A", texto = "Qualquer classe poderá implementar Documento desde que esteja no mesmo pacote" }
+      { token = "B", texto = "A interface restringe explicitamente o conjunto autorizado de variantes, útil para blindar o ecossistema de domínio" }
+      { token = "C", texto = "Sealed interface substitui enum em qualquer cenário" }
+      { token = "D", texto = "Records não podem implementar sealed interfaces" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 19
+    tema = "LPS + Evolução"
+    enunciado = "Uma linha de produto de crédito já suporta Brasil, México e EUA. O CEO pediu suporte a Portugal com NIF. Considerando a ideia de core estável, variabilidade e selagem, qual resposta é a mais madura?"
+    opcoes = [
+      { token = "A", texto = "Adicionar vários ifs por país no core, pois isso é mais simples de manter" }
+      { token = "B", texto = "Criar a nova variante autorizada de documento, incluir a nova strategy/análise e ajustar a factory no ponto de variação, evitando mexer na regra central além do necessário" }
+      { token = "C", texto = "Duplicar o projeto inteiro para Portugal e adaptar depois" }
+      { token = "D", texto = "Remover sealed interfaces para permitir qualquer classe improvisada" }
+    ]
+    correta = "B"
+  }
+
+  questao {
+    id = 20
+    tema = "Questão Integrada Difícil"
+    enunciado = "Você recebeu o seguinte legado em uma fintech:\n\nclass ProcessadorCreditoCore {\n    boolean processar(Solicitacao s) {\n        if (s.tipoPais().equals(\"BR\")) {\n            if (s.documento().length() == 11) {\n                // lógica BR CPF\n            } else {\n                // lógica BR CNPJ\n            }\n        } else if (s.tipoPais().equals(\"US\")) {\n            // lógica EUA\n        }\n\n        String xml = \"<soap>...</soap>\";\n        // chamada HTTP direta ao bureau externo\n        // persistência\n        // geração de relatório\n        return true;\n    }\n}\n\nQual alternativa apresenta a melhor estratégia de modernização, segundo os conteúdos estudados?"
+    opcoes = [
+      { token = "A", texto = "Manter a classe central e apenas dividir o método em regiões comentadas" }
+      { token = "B", texto = "Extrair pontos de variação com Strategy, centralizar criação com Factory, isolar bureau externo com Adapter, separar geração de relatório com Template Method e restringir documentos/estratégias com Sealed Interfaces" }
+      { token = "C", texto = "Trocar todos os ifs por switch e considerar a refatoração concluída" }
+      { token = "D", texto = "Substituir a classe por uma utilitária estática com mais métodos" }
+    ]
+    correta = "B"
+  }
+]

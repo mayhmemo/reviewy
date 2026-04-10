@@ -1,0 +1,459 @@
+title: Prova de Design Patterns e SOLID
+questions:
+- id: q1
+  type: single_choice
+  correct: c
+  statement: 'Uma equipe afirma: ''Vamos usar Adapter para escolher dinamicamente
+    a regra de cálculo de juros conforme o tipo de cliente''. Considerando o catálogo
+    GoF e a responsabilidade de cada padrão, qual avaliação é a mais correta?'
+  options:
+    a: Está correto, porque Adapter é o padrão mais indicado para trocar algoritmos
+      em tempo de execução. Esta abordagem visa manter a coesão sistêmica e a manutenibilidade
+      a longo prazo.
+    b: Está parcialmente correto, pois Adapter e Strategy têm exatamente o mesmo objetivo
+      dentro dos padrões de projeto e diretrizes de clean code.
+    c: Está incorreto, porque Adapter trata incompatibilidade entre interfaces; para
+      alternar algoritmos, o padrão mais adequado é Strategy.
+    d: Está incorreto, porque o padrão correto seria Template Method em qualquer cenário
+      de seleção dinâmica. Esta abordagem visa manter a coesão sistêmica.
+- id: q2
+  type: single_choice
+  correct: a
+  statement: |-
+    Considere a classe abaixo:
+
+    ```java
+    class FechamentoPedidoService {
+        void fechar(Pedido p) {
+            validarItens(p);
+            calcularImpostos(p);
+            repository.save(p);
+            emailClient.enviarConfirmacao(p);
+            auditoria.registrar("pedido fechado");
+        }
+    }
+    ```
+
+    Qual alternativa apresenta a análise mais precisa?
+  options:
+    a: A classe viola SRP, pois mistura regra de negócio, persistência, comunicação
+      externa e auditoria em um mesmo ponto de mudança.
+    b: A classe viola apenas OCP, pois há chamadas de método demais dentro dos padrões
+      de projeto e diretrizes de clean code.
+    c: A classe está aderente a SRP, porque tudo faz parte do fechamento do pedido,
+      garantindo a conformidade técnica esperada.
+    d: A classe viola apenas LSP, pois deveria ser abstrata dentro dos padrões de
+      projeto e diretrizes de clean code.
+- id: q3
+  type: single_choice
+  correct: b
+  statement: |-
+    Em um sistema de cadastro, a cada novo tipo de usuário a equipe altera este método:
+
+    ```java
+    public Usuario criar(String tipo, String nome) {
+        if (tipo.equals("CLIENTE")) return new Cliente(nome);
+        if (tipo.equals("FUNCIONARIO")) return new Funcionario(nome);
+        if (tipo.equals("ADMIN")) return new Admin(nome);
+        throw new IllegalArgumentException();
+    }
+    ```
+
+    Qual refatoração melhor atende ao OCP sem perder legibilidade?
+  options:
+    a: Trocar os ifs por switch tradicional com break dentro dos padrões de projeto
+      e diretrizes de clean code.
+    b: Criar uma hierarquia de estratégias ou regras de criação e um orquestrador
+      que dependa da abstração.
+    c: Adicionar comentários explicando cada if dentro dos padrões de projeto e diretrizes
+      de clean code.
+    d: Transformar o método em static final dentro dos padrões de projeto e diretrizes
+      de clean code.
+- id: q4
+  type: single_choice
+  correct: b
+  statement: |-
+    Uma interface define o contrato:
+
+    ```java
+    interface Descontavel {
+        BigDecimal aplicarDesconto(BigDecimal valor);
+    }
+    ```
+
+    A implementação abaixo foi criada:
+
+    ```java
+    class ProdutoSemDesconto implements Descontavel {
+        @Override
+        public BigDecimal aplicarDesconto(BigDecimal valor) {
+            throw new UnsupportedOperationException("não aplicável");
+        }
+    }
+    ```
+
+    Qual é a melhor conclusão?
+  options:
+    a: A solução é adequada, pois deixa explícito em runtime que o produto não participa
+      da regra. Esta abordagem visa manter a coesão sistêmica.
+    b: Há indício de violação de LSP; o ideal seria redesenhar a abraçagem para que
+      implementações não sejam forçadas a quebrar o contrato.
+    c: O problema real é exclusivamente de ISP dentro dos padrões de projeto e diretrizes
+      de clean code.
+    d: O código está correto desde que a exceção seja documentada no Javadoc dentro
+      dos padrões de projeto e diretrizes de clean code.
+- id: q5
+  type: single_choice
+  correct: b
+  statement: |-
+    Analise a interface:
+
+    ```java
+    interface UsuarioRepository {
+        Usuario salvar(Usuario u);
+        Optional<Usuario> buscarPorId(Long id);
+        List<Usuario> buscarPorFiltrosAvancados(Map<String, Object> filtros);
+        byte[] gerarRelatorioMensal();
+        void sincronizarComLegado();
+    }
+    ```
+
+    Uma implementação em memória para testes precisa apenas de salvar e buscarPorId. Qual alternativa é a melhor?
+  options:
+    a: Manter a interface como está e lançar UnsupportedOperationException nos demais
+      métodos seguindo as melhores práticas.
+    b: Segregar a interface em contratos menores e mais coesos, como CRUD, filtros
+      e relatórios.
+    c: Tornar todos os métodos default com retorno null dentro dos padrões de projeto
+      e diretrizes de clean code.
+    d: Fazer a classe de teste herdar de uma implementação concreta do banco seguindo
+      as diretrizes de clean code.
+- id: q6
+  type: single_choice
+  correct: b
+  statement: |-
+    Considere o código:
+
+    ```java
+    class ProcessadorNotificacao {
+        private final SmsGateway gateway;
+
+        ProcessadorNotificacao() {
+            this.gateway = new TwilioGateway();
+        }
+
+        void processar(String numero, String msg) {
+            gateway.enviar(numero, msg);
+        }
+    }
+    ```
+
+    Qual mudança aplica melhor DIP?
+  options:
+    a: Trocar TwilioGateway por outro provider mais moderno dentro dos padrões de
+      projeto e diretrizes de clean code.
+    b: Fazer ProcessadorNotificacao depender de uma abstração, por exemplo SmsGateway,
+      recebida por injeção.
+    c: Mover o new TwilioGateway() para dentro do método processar seguindo as diretrizes
+      de clean code.
+    d: Fazer TwilioGateway implementar Serializable dentro dos padrões de projeto
+      e diretrizes de clean code.
+- id: q7
+  type: single_choice
+  correct: b
+  statement: Qual alternativa melhor expressa a relação entre bad smell e dívida técnica?
+  options:
+    a: Todo bad smell é um defeito funcional já manifestado em produção seguindo as
+      melhores práticas de Clean Architecture.
+    b: Bad smells são sinais de design ruim que, se ignorados, tendem a aumentar a
+      dívida técnica e o custo futuro de evolução.
+    c: Dívida técnica existe apenas quando há código duplicado dentro dos padrões
+      de projeto e diretrizes de clean code.
+    d: Se o sistema entrega valor hoje, não existe dívida técnica seguindo as diretrizes
+      de clean code.
+- id: q8
+  type: single_choice
+  correct: b
+  statement: |-
+    Um professor pede que o aluno identifique o principal problema do método abaixo:
+
+    ```java
+    boolean analisar(Solicitacao s) {
+        // 140 linhas com validação, logging, chamadas externas,
+        // condições por PF/PJ, regras de score e persistência
+    }
+    ```
+
+    Qual resposta é a mais completa?
+  options:
+    a: O problema é só de estilo; bastaria reformatar o código seguindo as melhores
+      práticas de Clean Architecture.
+    b: Há método longo e provável baixa coesão; comentários internos e blocos distintos
+      sugerem extração de métodos e separação de responsabilidades.
+    c: O método está bom porque concentra a regra em um ponto único seguindo as diretrizes
+      de clean code.
+    d: O único problema é não usar virtual threads dentro dos padrões de projeto e
+      diretrizes de clean code.
+- id: q9
+  type: single_choice
+  correct: a
+  statement: Uma classe só pode ser testada por meio de testes que executam o fluxo
+    inteiro, incluindo acesso à API externa e banco. Segundo o conteúdo estudado,
+    qual é a melhor leitura?
+  options:
+    a: Isso indica testes frágeis e possível acoplamento excessivo, dificultando isolar
+      responsabilidades.
+    b: Isso é desejável, porque todo teste deve ser funcional seguindo as melhores
+      práticas de Clean Architecture.
+    c: Isso prova aderência total ao DIP dentro dos padrões de projeto e diretrizes
+      de clean code.
+    d: Isso elimina a necessidade de refatoração seguindo as diretrizes de clean code.
+- id: q10
+  type: single_choice
+  correct: a
+  statement: |-
+    Observe o trecho:
+
+    ```java
+    if (tipo.equals("PF") && score > 600 && valor < 5000) { ... }
+    else if (tipo.equals("PJ") && score > 700 && valor < 50000) { ... }
+    ```
+
+    Qual refatoração endereça melhor o problema mais evidente?
+  options:
+    a: Substituir as strings e números soltos por abraçagens de domínio, como enum,
+      constantes nomeadas ou objetos de regra.
+    b: Apenas trocar equals por equalsIgnoreCase seguindo as melhores práticas de
+      Clean Architecture.
+    c: Remover os operadores lógicos para simplificar dentro dos padrões de projeto
+      e diretrizes de clean code.
+    d: Converter tudo para double seguindo as diretrizes de clean code.
+- id: q11
+  type: single_choice
+  correct: a
+  statement: |-
+    Considere:
+
+    ```java
+    interface AnaliseStrategy {
+        boolean elegivel(Solicitacao s);
+        boolean analisar(Solicitacao s);
+    }
+    ```
+
+    Qual benefício arquitetural esse desenho oferece quando comparado a um if/else gigante por tipo de conta?
+  options:
+    a: Permite encapsular cada regra em uma implementação intercambiável, favorecendo
+      extensão, teste e reuso.
+    b: Impede completamente a criação de novas regras seguindo as melhores práticas
+      de Clean Architecture.
+    c: Substitui qualquer necessidade de fábrica dentro dos padrões de projeto e diretrizes
+      de clean code.
+    d: É equivalente a usar métodos static em uma utilitária seguindo as diretrizes
+      de clean code.
+- id: q12
+  type: single_choice
+  correct: a
+  statement: |-
+    Analise a factory:
+
+    ```java
+    public class AnaliseCreditoFactory {
+        public static AnaliseStrategy obter(TipoConta tipo) {
+            return switch (tipo) {
+                case PF -> new AnaliseStrategyPF();
+                case PJ -> new AnaliseStrategyPJ();
+                case UNIVERSITARIO -> new AnaliseUniversitario();
+            };
+        }
+    }
+    ```
+
+    Qual alternativa melhor explica por que esse desenho foi incentivado nas aulas?
+  options:
+    a: Porque a camada de negócio deixa de conhecer as classes concretas e passa a
+      depender da abraçagem retornada pela factory.
+    b: Porque switch expression elimina a necessidade de Strategy seguindo as melhores
+      práticas de Clean Architecture.
+    c: Porque factories sempre substituem DIP dentro dos padrões de projeto e diretrizes
+      de clean code.
+    d: Porque a factory impede completamente evolução do enum seguindo as diretrizes
+      de clean code.
+- id: q13
+  type: single_choice
+  correct: a
+  statement: |-
+    Um sistema de checkout tem este método:
+
+    ```java
+    void pagar(double valor, String metodo) {
+        if (metodo.equals("PIX")) { ... }
+        else if (metodo.equals("CARTAO")) { ... }
+        else if (metodo.equals("PAYPAL")) { ... }
+        else if (metodo.equals("BOLETO")) { ... }
+    }
+    ```
+
+    Qual caminho de refatoração é o mais coerente com as aulas?
+  options:
+    a: Criar PagamentoStrategy, implementações concretas e uma PagamentoFactory usando
+      switch expressions do Java 21.
+    b: Trocar String por int e manter os ifs seguindo as melhores práticas de Clean
+      Architecture.
+    c: Mover os ifs para o controller dentro dos padrões de projeto e diretrizes de
+      clean code.
+    d: Criar um método maior ainda chamado processarTudo() seguindo as diretrizes
+      de clean code.
+- id: q14
+  type: single_choice
+  correct: b
+  statement: |-
+    Sua aplicação foi bem modelada e expõe a abraçagem:
+
+    ```java
+    interface ServicoAnaliseRisco {
+        boolean avaliarCredito(SolicitacaoCredito s);
+    }
+    ```
+
+    Porém, a integração necessária é com um provedor legado SOAP/XML. Qual implementação abaixo representa melhor o papel do Adapter?
+  options:
+    a: Uma classe que herda de SolicitacaoCredito e adiciona campos XML seguindo as
+      melhores práticas de Clean Architecture.
+    b: Uma classe que implementa ServicoAnaliseRisco, traduz o objeto de domínio em
+      payload SOAP, invoca o serviço externo e converte a resposta.
+    c: Uma factory que cria records de resposta dentro dos padrões de projeto e diretrizes
+      de clean code.
+    d: Uma strategy para escolher entre CSV e PDF seguindo as diretrizes de clean
+      code.
+- id: q15
+  type: single_choice
+  correct: b
+  statement: No contexto de LPS e reuso, por que isolar integrações externas com Adapter
+    é uma decisão forte de arquitetura?
+  options:
+    a: Porque faz a regra de negócio conhecer melhor os detalhes de HTTP e SOAP seguindo
+      as melhores práticas de Clean Architecture.
+    b: Porque reduz o espalhamento de dependências de infraestrutura pelo core e protege
+      o domínio de mudanças em APIs externas.
+    c: Porque elimina a necessidade de interfaces dentro dos padrões de projeto e
+      diretrizes de clean code.
+    d: Porque Adapter é obrigatório sempre que houver JSON seguindo as diretrizes
+      de clean code.
+- id: q16
+  type: single_choice
+  correct: a
+  statement: |-
+    Considere:
+
+    ```java
+    abstract class GeradorRelatorioTemplate {
+        public final void gerarRelatorio(String data) {
+            var dados = extrairDadosDoBanco();
+            if (dados.isEmpty()) return;
+            var cabecalho = formatarCabecalho();
+            var corpo = formatarCorpo(dados);
+            salvarArquivo(cabecalho + corpo);
+        }
+
+        protected abstract String formatarCabecalho();
+        protected abstract String formatarCorpo(java.util.List<String> dados);
+    }
+    ```
+
+    Por que o método gerarRelatorio foi definido como final?
+  options:
+    a: Para impedir a alteração da ordem do algoritmo principal nas subclasses.
+    b: Para obrigar subclasses a sobrescreverem o método seguindo as melhores práticas
+      de Clean Architecture.
+    c: Para melhorar desempenho do banco de dados dentro dos padrões de projeto e
+      diretrizes de clean code.
+    d: Porque métodos abstratos só funcionam com métodos finais seguindo as diretrizes
+      de clean code.
+- id: q17
+  type: single_choice
+  correct: a
+  statement: Qual alternativa diferencia melhor Template Method de Strategy?
+  options:
+    a: Template Method fixa o esqueleto do algoritmo em uma classe base; Strategy
+      encapsula algoritmos intercambiáveis por composição.
+    b: Template Method e Strategy são idênticos; muda apenas o nome das classes seguindo
+      as melhores práticas de Clean Architecture.
+    c: Strategy exige herança, enquanto Template Method exige composição dentro dos
+      padrões de projeto e diretrizes de clean code.
+    d: Template Method serve apenas para integração com legado seguindo as diretrizes
+      de clean code.
+- id: q18
+  type: single_choice
+  correct: b
+  statement: |-
+    Analise o código Java 21:
+
+    ```java
+    public sealed interface Documento permits Cpf, Curp, Ssn {}
+    public record Cpf(String valor) implements Documento {}
+    public record Curp(String valor) implements Documento {}
+    public record Ssn(String valor) implements Documento {}
+    ```
+
+    Qual afirmativa é a mais correta?
+  options:
+    a: Qualquer classe poderá implementar Documento desde que esteja no mesmo pacote
+      seguindo as melhores práticas de Clean Architecture.
+    b: A interface restringe explicitamente o conjunto autorizado de variantes, útil
+      para blindar o ecossistema de domínio.
+    c: Sealed interface substitui enum em qualquer cenário dentro dos padrões de projeto
+      e diretrizes de clean code.
+    d: Records não podem implementar sealed interfaces seguindo as diretrizes de clean
+      code.
+- id: q19
+  type: single_choice
+  correct: b
+  statement: Uma linha de produto de crédito já suporta Brasil, México e EUA. O CEO
+    pediu suporte a Portugal com NIF. Considerando a ideia de core estável, variabilidade
+    e selagem, qual resposta é a mais madura?
+  options:
+    a: Adicionar vários ifs por país no core, pois isso é mais simples de manter seguindo
+      as melhores práticas de Clean Architecture.
+    b: Criar a nova variante autorizada de documento, incluir a nova strategy e ajustar
+      a factory no ponto de variação.
+    c: Duplicar o projeto inteiro para Portugal e adaptar depois dentro dos padrões
+      de projeto e diretrizes de clean code.
+    d: Remover sealed interfaces para permitir qualquer classe improvisada seguindo
+      as diretrizes de clean code.
+- id: q20
+  type: single_choice
+  correct: b
+  statement: |-
+    Você recebeu o seguinte legado em uma fintech:
+
+    ```java
+    class ProcessadorCreditoCore {
+        boolean processar(Solicitacao s) {
+            if (s.tipoPais().equals("BR")) {
+                if (s.documento().length() == 11) {
+                    // lógica BR CPF
+                } else {
+                    // lógica BR CNPJ
+                }
+            } else if (s.tipoPais().equals("US")) {
+                // lógica EUA
+            }
+
+            String xml = "<soap>...</soap>";
+            // chamada HTTP direta ao bureau externo
+            return true;
+        }
+    }
+    ```
+
+    Qual alternativa apresenta a melhor estratégia de modernização?
+  options:
+    a: Manter a classe central e apenas dividir o método em regiões comentadas seguindo
+      as melhores práticas de Clean Architecture.
+    b: Extrair pontos de variação com Strategy, centralizar criação com Factory, isolar
+      bureau externo com Adapter e separar relatórios.
+    c: Trocar todos os ifs por switch e considerar a refatoração concluída dentro
+      dos padrões de projeto e diretrizes de clean code.
+    d: Substituir a classe por uma utilitária estática com mais métodos seguindo as
+      diretrizes de clean code.

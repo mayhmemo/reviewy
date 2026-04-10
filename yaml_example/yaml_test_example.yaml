@@ -1,0 +1,50 @@
+title: Prova de Revisão
+questions:
+  - id: q1
+    type: single_choice
+    correct: a
+    statement: |
+      Dado o código abaixo, qual alternativa representa uma declaração válida de método em Java?
+
+      ```java
+      public class Test {
+      }
+      ```
+    options:
+      a: |
+        ```java
+        public String test() {
+        }
+        ```
+      b: |
+        ```java
+        public string test() {
+        }
+        ```
+      c: |
+        ```java
+        String public test() {
+        }
+        ```
+      d: |
+        ```java
+        public test() {
+        }
+        ```
+
+  - id: q2
+    type: single_choice
+    correct: c
+    statement: |
+      Considere a fórmula abaixo:
+
+      $$
+      a^2 + b^2 = c^2
+      $$
+
+      Qual é o valor de $c$ quando $a = 3$ e $b = 4$?
+    options:
+      a: "$5^2$"
+      b: "6"
+      c: "5"
+      d: "7"
